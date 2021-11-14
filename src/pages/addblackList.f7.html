@@ -1,0 +1,129 @@
+<template>
+  <div class="page" data-name="addblacklist">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">Agregar a lista negra</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="block-title">Agregar persona a la lista negra</div>
+      <div class="block">
+        <p class="text-align-justify">Esta lista permite agregar personas que por diferentes motivos seran bloqueadas de nuestro sistema ya sea por algun reporte interno o externo (publicación en redes sociales), esto con el fin de poder seleccionar inquilinos que no puedan llegar a causar problemas</p>
+        <form class="list no-store-data" id="my-form">
+          <ul>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">CURP</div>
+                  <div class="item-input-wrap">
+                    <input type="text" name="curp" placeholder="CURP" required 
+                      style="text-transform:uppercase"
+                      pattern="([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\d)"
+                      validate data-error-message="Proporciona la CURP" />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">DETALLES</div>
+                  <div class="item-input-wrap">
+                    <textarea placeholder="Ingrese aqui los detalles del reporte" name="motivo" required validate
+                      data-error-message="Informa del problema por lo que estan reportando a esta persona"></textarea>
+                    <!--<input type="text" name="name" placeholder="DETALLES" required validate/>-->
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-title">¿Es un reporte en redes sociales?</div>
+                  <div class="item-after">
+                    <label class="toggle toggle-init">
+                      <input class="no-store-data" type="checkbox" name="externo" value="yes" /><i class="toggle-icon"></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+<li>
+  <button class="col button button-large button-fill convert-form-to-data">Agregar</button>
+</li>
+
+          </ul>
+        </form>
+
+       <!-- <div class="block block-strong row">
+          <div class="col"><a class="button button-fill convert-form-to-data" href="#">Get Data</a></div>
+          <div class="col"><a class="button button-fill fill-form-from-data" href="#">Fill Form</a></div>
+        </div> -->
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+</template>
+<script>
+  export default (props, { $, $on, $f7 }) => {
+    $on('pageInit', () => {
+      $('.convert-form-to-data').on('click', function () {
+        var formData = $f7.form.convertToData('#my-form');
+        var toggle = $f7.toggle.get('.toggle');
+        (toggle.checked)?formData.externo = 1:formData.externo = 0;
+        formData.operacion = 'post'; 
+        console.log(JSON.stringify(formData));
+        //enviar a guardar
+        $f7.dialog.progress();
+        $f7.request.post('https://7perp.geopanda.com.mx/php/adminBlackList.7perp.php', formData, "json")
+            .then(function (res) {
+             console.log(res.data); //reibe el json de respuesta
+              $f7.dialog.close();
+              $f7.dialog.alert(res.data.msj);
+              limpiaForm();
+            }).catch(function (err) {
+              $f7.dialog.close();
+              $f7.dialog.alert(err.statusText);
+              console.log(err.xhr)
+              console.log(err.status)
+              console.log(err.message)
+            }).finally(function(e){
+              //limpiaForm();
+            });
+      });
+
+      function limpiaForm(){
+        var formData = {
+          'curp': '',
+          'motivo': '',
+          'externo': ['no'],
+        }
+        $f7.form.fillFromData('#my-form', formData);
+      }
+
+      $('.fill-form-from-data').on('click', function () {
+        var formData = {
+          'curp': 'John',
+          'motivo': 'john@doe.com',
+          'externo': ['yes'],
+        }
+        $f7.form.fillFromData('#my-form', formData);
+      });
+    });
+
+    return $render;
+  }
+</script>

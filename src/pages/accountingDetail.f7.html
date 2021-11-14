@@ -1,0 +1,209 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title" id="cabecera">Virtual List</div>
+
+      </div>
+    </div>
+    <div class="page-content">
+
+      <div class="block-title text-align-center">Movimientos</div>
+      <div class="block  no-hairlines">
+        <!-- block content -->
+        <div class="list"></div>
+      </div>
+
+    </div>
+  </div>
+</template>
+
+
+
+
+<script>
+  export default (props, { $, $on, $f7, $el, $theme }) => {
+
+    let items = [];
+
+
+
+    /*for (let i = 1; i <= 5; i++) {
+      items.push({
+        title:  i.toString(),
+        subtitle: 'Subtitle ' + i
+      });
+    }*/
+
+    //console.log(items);
+
+    $on('pageInit', (e) => {
+      console.log(e);
+      //console.log(e.detail.route.params.cuenta);
+      //console.log(e.detail.route.params.alias);
+      document.getElementById("cabecera").innerHTML = 'CUENTA ' + e.detail.route.params.alias;
+      //this.$router.back({reloadPrevious: true});
+      // console.log(app.view);
+
+      //obtiene los items 
+
+      var formData = [];
+      formData.operacion = 'get';
+      formData.listado = 'movimientos_x_cuenta';
+      formData.cuenta = e.detail.route.params.cuenta;
+      console.log(formData);
+      $f7.request.get('https://7perp.geopanda.com.mx/php/adminMovimientos.7perp.php', formData, "json")
+        .then(function (res) {
+          if (res.data.code == 200) {
+            if (res.data.elementos) {
+
+              res.data.elementos.forEach(element => {
+
+                var clr;
+                switch (element.tipomovimiento) {
+                  case "I": case "TI":
+                    clr = 'teal';
+                    break;
+                  case "E": case "TE":
+                    clr = 'pink';
+                    break;
+                  case "A":
+                    clr = 'gray';
+                    break;
+                }
+
+
+
+                console.log(clr);
+                items.push({
+                  folio: element.movimiento,
+                  fecha: element.fecha,
+                  cantidad: element.cantidad,
+                  comentarios: element.comentarios,
+                  categoria: element.categoria,
+                  timemark: element.timemark,
+                  tipomovimiento: element.tipomovimiento,
+                  color: clr,
+                  saldo_previo: element.saldo_previo,
+                  nuevo_saldo: element.nuevo_saldo,
+                  icon: element.icon,
+                  color_cat: element.color_categoria
+
+                });
+                console.log(element);
+              }); //foreach
+
+              //render
+              const virtualList = $f7.virtualList.create({
+                // List Element
+                el: $el.value.find('.list'),
+                // Pass array with items
+                items,
+                // Custom search function for searchbar
+                searchAll: function (query, items) {
+                  var found = [];
+                  for (var i = 0; i < items.length; i++) {
+                    if (items[i].fecha.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                    if (items[i].cantidad.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                    if (items[i].comentarios.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                  }
+                  return found; //return array with mathced indexes
+                },
+                // List item render
+                renderItem(item) {
+                  /*return `
+                  <div class="timeline-item">
+                      <div class="timeline-item-date"><small>${item.fecha}</small></div>
+                      <div class="timeline-item-divider"></div>
+                      <div class="timeline-item-content"></div>
+                      <div class="timeline-item-text">
+                        <div class="card-header">${item.cantidad}</div>
+                        <div class="card">
+                          <div class="card-content card-content-padding">${item.comentarios}</div>
+                        </div>
+                        <div class="card-footer">Card Footer</div>
+                        </div>
+                    </div>
+                  `;*/
+
+                  /*  return `
+                    <li>
+                      <a href="#" class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">${item.cantidad}</div>
+                            <div class="item-after">${item.fecha}</div>
+                          </div>
+                          <div class="item-subtitle">${item.categoria}</div>
+                          <div class="item-text">${item.comentarios}</div>
+                        </div>
+                      </a>
+                    </li>`;*/
+
+                  return ` 
+      <div class="card demo-facebook-card elevation-15">
+        <div class="card-header bg-color-${item.color}">
+          <div class="demo-facebook-avatar">
+            <span class="badge bg-color-white text-color-${item.color}">${item.folio}</span>
+            </div>
+          <div class="demo-facebook-name">$${item.cantidad} MXN</div>
+          <div class="demo-facebook-date">${item.timemark}</div>
+        </div>
+        <div class="card-content card-content-padding">
+          <p class="date text-align-center"><i class="material-icons size-20">${item.icon}</i></p>
+          <p class="date text-align-center">${item.categoria}</p>
+          <p class="movimiento">${item.comentarios}</p>
+          </div>
+        <div class="card-footer"><a href="#" class="link">$${item.saldo_previo}MXN</a><a href="#" class="link"><i class="material-icons">trending_flat</i></a><a href="#"
+            class="link">$${item.nuevo_saldo} MXN</a></div>
+      </div>`;
+
+
+                },
+                // Item height
+                height: $theme.ios ? 63 : ($theme.md ? 73 : 77),
+              });
+
+
+
+
+            } else {
+              //viene vacio
+              // document.getElementById("footer_egresos").innerHTML = '<span>SIN EGRESOS GENERADOS</span> <span class="text-color-pink size-22">$0.00 MXN</span>';
+            }
+          }
+        }).catch(function (err) {
+          $f7.dialog.close();
+          $f7.dialog.alert(err.statusText);
+          console.log(err.xhr)
+          console.log(err.status)
+          console.log(err.message)
+        }).finally(function (e) {
+          //limpiaForm();
+        });
+
+
+
+
+
+
+
+
+
+
+    });
+    return $render;
+  };
+
+
+
+
+
+</script>

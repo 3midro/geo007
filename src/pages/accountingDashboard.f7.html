@@ -1,0 +1,345 @@
+<template>
+  <div class="page" data-name="Contabilidad">
+
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">Contabilidad</div>
+      </div>
+    </div>
+    <div class="page-content align-content-space-around">
+      <div class="block-title text-align-center">Dashboard</div>
+      <div class="block block-strong">
+
+        <div class="row no-gap align-items-stretch">
+          <div class="col-100 medium-50">
+            <div class="card elevation-15">
+              <div class="card-header text-align-center">INGRESOS DEL MES</div>
+              <div class="card-content card-content-padding">
+
+                <!--Div that will hold the pie chart-->
+                <div id="piechart_ingresos"></div>
+
+              </div>
+              <div class="card-footer" id="footer_ingresos">
+
+                <span>INGRESOS DEL MES <span id="ingresos_date" class="text-color-teal">[AÑO/MES]</span></span><span
+                  id="ingresos_acumulados" class="text-color-teal size-22">$XXXX.XX</span>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="col-100 medium-50">
+            <div class="card elevation-15">
+              <div class="card-header">GASTOS POR CATEGORIA DEL MES</div>
+              <div class="card-content card-content-padding">
+
+                <!--Div that will hold the pie chart-->
+                <div id="piechart_egresos"></div>
+
+              </div>
+              <div class="card-footer" id="footer_egresos"> <span>EGRESOS DEL MES <span id="egresos_date"
+                    class="text-color-pink">[AÑO/MES]</span></span><span id="egresos_acumulados"
+                  class="text-color-pink size-22">$XXXX.XX</span></div>
+            </div>
+          </div>
+
+
+          <div class="col-100">
+            <div class="card elevation-15">
+              <div class="card-header">TABLERO</div>
+              <div class="card-content">
+                <div class="list media-list no-ios-edges">
+                  <ul id="ul_getSaldosxCuenta">
+                 
+                    <!-- <li class="item-content skeleton-text skeleton-effect-wave">
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">____ _____</div>
+                </div>
+                <div class="item-subtitle">____ _______</div>
+                <div class="item-text">____ ____ ____ _____ ___ __ ____ __ ________ __ ____ ___ ____</div>
+              </div>
+            </li>-->
+                  </ul>
+                </div>
+              </div>
+              <div class="card-footer" id="footer_cuentas"> <span>BALANCE AL [FECHA Y HORA]</span><span>$XXXX.XX</span></div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="fab fab-right-bottom">
+      <a href="/addAccountingMovement/" data-view=".view-main">
+        <i class="icon f7-icons">plus</i>
+      </a>
+    </div>
+
+  </div>
+
+</template>
+<script>
+  export default (props, { $, $on, $f7 }) => {
+
+ 
+
+  $on('pageAfterIn', (e, page) => {
+    
+    if (sessionStorage.length>0){
+      if(sessionStorage.getItem('refresh')){
+        operaciones();
+      }
+    }
+    
+    
+   // console.log(e);
+  //  console.log(page);
+
+  });
+
+
+
+function operaciones(){
+  function getGraficos() {
+        getSaldosxCuenta();
+        getGastosxMes();
+        getIngresosxMes();
+      }
+
+      function getGastosxMes() {
+        var formData = [];
+        formData.operacion = 'get';
+        formData.listado = 'gastos_x_mes';
+        var reporte;
+        var colores = [];
+        var total;
+        $f7.request.get('https://7perp.geopanda.com.mx/php/adminMovimientos.7perp.php', formData, "json")
+          .then(function (res) {
+            if (res.data.code == 200) {
+              if (res.data.elementos) {
+                //construyon tabla
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Categoria');
+                data.addColumn('number', 'Gasto Total');
+                res.data.elementos.forEach(element => {
+                  //console.log(element);
+                  data.addRow([element.categoria, parseInt(element.gasto_total)]);
+                  // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
+                  total = (total == null || total == undefined || total == "") ? 0 : total;
+                  total += parseFloat(element.gasto_total);
+                  // total = parseFloat(total) + parseFloat(element.gasto_total); //acumulado
+                  reporte = element.fecha;
+                  colores.push(element.color);
+                }); //foreach
+
+                //grafico
+                var options = { title: 'Mis gastos del ' + reporte, colors: colores };
+                //llena la ficha
+                //llena la ficha
+                document.getElementById("footer_egresos").innerHTML = '<span>EGRESOS <span class="text-color-pink">' + reporte + '</span> </span> <span class="text-color-pink size-22">$' + parseFloat(total) + ' </span></span>';
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart_egresos'));
+
+                chart.draw(data, options);
+              } else {
+                //viene vacio
+                document.getElementById("footer_egresos").innerHTML = '<span>SIN EGRESOS GENERADOS</span> <span class="text-color-pink size-22">$0.00 MXN</span>';
+              }
+            }
+          }).catch(function (err) {
+            $f7.dialog.close();
+            $f7.dialog.alert(err.statusText);
+            console.log(err.xhr)
+            console.log(err.status)
+            console.log(err.message)
+          }).finally(function (e) {
+            //limpiaForm();
+          });
+      }
+
+      function getIngresosxMes() {
+        var formData = [];
+        formData.operacion = 'get';
+        formData.listado = 'ingresos_x_mes';
+        var reporte;
+        var colores = [];
+        var total;
+        $f7.request.get('https://7perp.geopanda.com.mx/php/adminMovimientos.7perp.php', formData, "json")
+          .then(function (res) {
+            if (res.data.code == 200) {
+              // console.log(res);
+              if (res.data.elementos) {
+                //construyon tabla
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Categoria');
+                data.addColumn('number', 'Ingreso Total');
+                res.data.elementos.forEach(element => {
+                 // console.log(element);
+                  data.addRow([element.categoria, parseInt(element.gasto_total)]);
+                  colores.push(element.color);
+                  reporte = element.fecha;
+                  // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
+                  total = (total == null || total == undefined || total == "") ? 0 : total;
+                  total += parseFloat(element.gasto_total);
+                }); //foreach
+
+                //grafico
+                //var options = { title: 'Mis ingresos generados en '+reporte};
+                var options = { title: 'Mis ingresos generados en ' + reporte, colors: colores };
+                //llena la ficha
+                document.getElementById("footer_ingresos").innerHTML = '<span>INGRESOS <span class="text-color-teal">' + reporte + '</span> </span> <span class="text-color-teal size-22">$' + parseFloat(total) + ' </span></span>';
+
+                // document.getElementById("ingresos_date").innerHTML = reporte;
+                //  document.getElementById("ingresos_acumulados").innerHTML = '$' + parseFloat(total) + ' MXN';
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart_ingresos'));
+
+                chart.draw(data, options);
+              } else {
+                //viene vacio
+                document.getElementById("footer_ingresos").innerHTML = '<span>SIN INGRESOS GENERADOS</span> <span class="text-color-teal size-22">$0.00 MXN</span>';
+              }
+
+
+
+            }
+          }).catch(function (err) {
+            $f7.dialog.close();
+            $f7.dialog.alert(err.statusText);
+            console.log(err.xhr)
+            console.log(err.status)
+            console.log(err.message)
+          }).finally(function (e) {
+            //limpiaForm();
+          });
+      }
+
+      function getSaldosxCuenta() {
+
+        
+        var saldo_total = 0;
+        var formData = [];
+        formData.operacion = 'get';
+        formData.listado = 'saldos_x_cuenta';
+        var div = document.getElementById("ul_getSaldosxCuenta");
+        //div.innerHTML = ' <li><a href="#" class="item-link item-content"><div class="item-media"><img src="https://cdn.framework7.io/placeholder/people-160x160-2.jpg" width="80" /></div><div class="item-inner"><div class="item-title-row"><div class="item-title">Dont Stop Me Now</div><div class="item-after">$22</div></div><div class="item-subtitle">Queen</div><div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula necdapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div></div></a></li>';
+        div.innerHTML = '';
+        $f7.request.get('https://7perp.geopanda.com.mx/php/adminMovimientos.7perp.php', formData, "json")
+          .then(function (res) {
+            if (res.data.code == 200) {
+              //construyo el select
+              res.data.elementos.forEach(element => {
+                
+                if(element.balance==1){
+                  saldo_total = parseFloat(saldo_total) + parseFloat(element.saldo);
+                }
+                
+                // console.log(element);
+                if (element.saldo >= 0 || true) {
+
+                  var icon = 'trending_flat'; var color = 'text-color-gray-shade';
+                  var movimiento = '<span>$0.00 MXN</span>';
+                  if (element.diferencia != 0) {
+                    icon = (element.diferencia > 0) ? 'trending_up' : 'trending_down';
+                    color = (element.diferencia > 0) ? 'text-color-teal' : 'text-color-pink';
+                    movimiento = (element.diferencia > 0) ? '<span class="text-color-teal">$' + element.diferencia + ' MXN</span>' : '<span class="text-color-pink">-$' + Math.abs(element.diferencia) + ' MXN</span>';
+                  }
+
+                  var inbalance_color = (element.balance==1)?'teal':'pink';
+
+               
+
+
+                  div.innerHTML += ' <li class="swipeout">' +
+                    '<div class="swipeout-content">' +
+                    '<a href="#" class="item-lin+k item-content">' +
+                    ' <div class="item-media">' +
+                    '<img src="https://7perp.geopanda.com.mx/images/cuentas/' + element.idcuenta + '.png" width="70" />' +
+                    ' </div>' +
+                    '<div class="item-inner">' +
+                    '<div class="item-title-row">' +
+                    '<div class="item-title">' + element.alias + '</div>' +
+                    '<div class="item-after"><i class="material-icons ' + color + '">' + icon + '</i><span class="badge color-'+inbalance_color+'"></span>' +
+                    '</div></div>' +
+                    '<div class="item-subtitle size-22 ' + color + '">$' + element.saldo + ' MXN</div>' +
+                    '<div class="item-text">' +
+                    '<Lorem>Último movimiento de ' + movimiento + ' el día ' + element.fecha + '</Lorem>' +
+                  // '<p> <span>Text label</span> <label class="toggle"><input type="checkbox" /><span class="toggle-icon"></span> </label></p>'+
+                    '</div>' +
+                    ' </div>' +
+                    '</a>' +
+                    '</div>' +
+                    '<div class="swipeout-actions-left">' +
+                    '<a href="/accountingDetail/'+element.idcuenta+'/'+element.alias+'" data-animate="false"  class="color-black swipeout-overswipe" ><i class="material-icons size-22">more_vert</i> Detalle</a>' +
+                    //'<a href="#" class="color-blue" @click=${forward}>Forward</a>' +
+                    '</div>' +
+                   /* '<div class="swipeout-actions-right">' +
+                    '<a href="#" @click=${more}>More</a>' +
+                    '<a href="#" class="color-orange" @click=${mark}>Mark</a>' +
+                    '<a href="#" data-confirm="Are you sure you want to delete this item?"' +
+                    'class="swipeout-delete swipeout-overswipe">Delete</a>' +
+                    '</div>' +*/
+                    '</li>';
+
+                   
+
+                  //  data.addRow([element.alias, parseInt(element.saldo), parseInt(element.diferencia)]);
+                }
+
+              }); //foreach
+            }
+          }).catch(function (err) {
+            $f7.dialog.close();
+            $f7.dialog.alert(err.statusText);
+            console.log(err.xhr)
+            console.log(err.status)
+            console.log(err.message)
+          }).finally(function (e) {
+            //limpiaForm();
+            sessionStorage.clear();
+//obtiene fecha y hora del corte
+	
+var hoy = new Date();
+var fecha = hoy.getDate() + '-' + ( hoy.getMonth() + 1 ) + '-' + hoy.getFullYear();
+var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
+var fechaYHora = fecha + ' ' + hora;
+
+            document.getElementById("footer_cuentas").innerHTML ='<span><small>'+fechaYHora+'</small></span><span class="text-color-pink size-29">$'+saldo_total+'</span>';
+            //console.log(saldo_total);
+          });
+
+          
+
+      }// fin getsaldos
+
+
+
+      google.charts.load('current', { 'packages': ['table', 'corechart'] });
+      google.charts.setOnLoadCallback(getGraficos);
+  
+}
+
+
+
+    $on('pageInit', () => {
+     operaciones();
+    });
+
+    return $render;
+  }
+</script>

@@ -1,0 +1,40 @@
+<template>
+<div class="page" data-name="signature">
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="if-not-md">Back</span>
+        </a>
+      </div>
+      <div class="title">FIRMA DIGITAL</div>
+    </div>
+  </div>
+  <div class="page-content text-align-center align-content-space-around">
+    <div class="block-title ">FIRMA DIGITAL</div>
+    <div class="block block-strong">
+      <p> 
+        <object data="https://7perp.geopanda.com.mx/images/signature.svg" width="300" height="300" class="lazy lazy-fade-in"> </object>
+      </p>
+      
+      <p>Validez oficial</p>
+      <p class="text-align-justify">La firma digital tiene la misma validez y eficacia jurídica que el uso de una firma manuscrita u otra análoga que conlleve manifestación de voluntad, así como también la garantía de integridad y autenticidad del documento</p>
+    </div>
+
+
+  </div>
+</div>
+</template>
+<script>
+ export default (props, { $, $on, $f7 }) => {
+    $on('pageInit', () => {
+     var signature_pad = require('signature_pad');
+     console.log("firma");  
+     
+    });
+
+    return $render;
+  }
+</script>

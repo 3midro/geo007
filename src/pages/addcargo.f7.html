@@ -1,0 +1,416 @@
+<template>
+  <div class="page" data-name="addPago">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">REGISTRAR CARGO</div>
+      </div>
+    </div>
+    <div class="page-content">
+     
+      <div class="block">
+        
+        <form class="list no-store-data" id="my-form">
+          <ul>
+
+            <li>
+              <a href="#" class="item-link smart-select smart-select-init" data-close-on-select="true" data-page-title="Inquilinos seleccionables" data-searchbar="true" data-searchbar-placeholder="Busqueda">
+                <!-- "maxlength" attribute to limit number of possible selected items -->
+                <!-- we won't allow to select more than 3 items -->
+                <select name="curp">
+                  <option value="" selected disabled></option>
+                  <optgroup label="INQUILINOS" id="inquilinos">
+                  </optgroup>
+                  <optgroup label="PROPIETARIOS" id="propietarios">
+                  </optgroup>     
+                </select>
+                <div class="item-content">
+                  <div class="item-media"><i class="material-icons size-29">person</i></div>
+                  <div class="item-inner">
+                    <div class="item-title">PERSONA</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+
+            
+
+            <li>
+              <a href="#" class="item-link smart-select smart-select-init" data-close-on-select="true" data-page-title="TIPO DE FACTURA" data-searchbar="true" data-searchbar-placeholder="Busqueda">
+                <select name="invoice" id="invoice">
+                  <option value="" selected disabled></option>
+                </select>
+                <div class="item-content">
+                  <div class="item-media"><i class="material-icons size-29">receipt</i></div>
+                  <div class="item-inner">
+                    <div class="item-title">CATEGORIA</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+
+
+            
+
+         
+
+            <li>
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">home</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">INMUEBLE</div>
+                  <div class="item-input-wrap">
+                    <input type="text" class="display-none" name="idinmueble" id="idinmueble" placeholder="INMUEBLE"  />
+                    <input type="text" disabled  name="inmueble" id="inmueble" placeholder="INMUEBLE"  />
+                  </div>
+                </div>
+              </div>
+            </li>
+            
+
+
+
+            <li>
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">shopping_cart</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">PRECIO REGULAR</div>
+                  <div class="item-input-wrap">
+                    <input type="number" name="precioregular" id="precioregular" placeholder="PRECIO REGULAR" pattern="[0-9]*" />
+                  </div>
+                </div>
+              </div>
+            </li>
+            
+            <li>
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">remove_shopping_cart</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">PRECIO PRONTO PAGO</div>
+                  <div class="item-input-wrap">
+                    <input type="number" name="prontopago" id="prontopago" placeholder="PRONTO PAGO"  pattern="[0-9]*"/>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">lock</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">DEPOSITO EN GARANTIA</div>
+                  <div class="item-input-wrap">
+                    <input type="number" name="deposito" id="deposito" placeholder="DEPOSITO"  pattern="[0-9]*" value="0"/>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">CONCEPTO DEPOSITO</div>
+                  <div class="item-input-wrap">
+                    <textarea placeholder="Ingrese aqui los detalles del deposito en garantia" name="depositconcept" ></textarea>
+                    <!--<input type="text" name="name" placeholder="DETALLES" required validate/>-->
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            
+           <li>
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">money_off</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">DESCUENTO</div>
+                  <div class="item-input-wrap">
+                    <input type="number" name="descuento" id="descuento" placeholder="DESCUENTO"  pattern="[0-9]*" value="0"/>
+                  </div>
+                </div>              
+              </div>
+           </li>
+          
+            <li>
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">event_available</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">APLICAR</div>
+                  <div class="item-input-wrap">
+                    <input type="text" name="discountdate" id="discountdate" placeholder="YYYY-MM-DD"  />
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </div>
+          </li>
+
+          <li>
+            <div class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-title item-label">CONCEPTO DESCUENTO</div>
+                <div class="item-input-wrap">
+                  <textarea placeholder="Ingrese aqui los detalles del reporte" name="discountconcept" ></textarea>
+                  <!--<input type="text" name="name" placeholder="DETALLES" required validate/>-->
+                </div>
+              </div>
+            </div>
+          </li>
+
+
+            <li>
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">today</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">FECHA DE MUDANZA</div>
+                  <div class="item-input-wrap">
+                    <input type="text" name="startdate" id="startdate" placeholder="YYYY-MM-DD"  />
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+
+            <li>
+              <div class="item-content">
+                <div class="item-media"><i class="material-icons size-29">fingerprint</i></div>
+                <div class="item-inner">
+                  <div class="item-title">Firmar Digitalmente</div>
+                  <div class="item-after">
+                    <a class="button button-fill display-none" id="btn_firma" href="/signature/" data-view=".view-main">Contratos</a>
+                    <label class="toggle toggle-init">
+                      <input class="no-store-data" type="checkbox" name="firmardigital" id="firmardigital" /><i class="toggle-icon"></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+
+
+
+            
+
+            <div class="block block-strong row">
+                  <div class="col"><a class="button button-fill convert-form-to-data" href="#">REGISTRAR CARGO</a></div>
+            </div>
+
+          </ul>
+        </form>
+
+       <!-- <div class="block block-strong row">
+          <div class="col"><a class="button button-fill convert-form-to-data" href="#">Get Data</a></div>
+          <div class="col"><a class="button button-fill fill-form-from-data" href="#">Fill Form</a></div>
+        </div> -->
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+</template>
+<script>
+  export default (props, { $, $on, $f7 }) => {
+    $on('pageInit', () => {
+     
+       
+      getCURPS(); getTIPOINVOICE();
+    
+
+     
+
+      $("#firmardigital").on('change',function(){
+        if (this.checked){
+          $("#btn_firma").click();
+          $('#firmardigital').prop("checked",false);
+        }
+      });
+
+
+      $("select[name=curp]").change(function(){});
+
+      $("select[name=idunidad]").change(function(){});
+
+
+      //inicializa el select de curps
+      function getCURPS(){
+        var formData =[];
+        formData.operacion = 'get';
+        formData.combo = 'addcargo.f7.html_comboCurp'; 
+        //return false;
+        $f7.dialog.progress();
+        $f7.request.get('https://7perp.geopanda.com.mx/php/admCombos.7perp.php', formData, "json")
+            .then(function (res) {
+              console.log(res);
+              if (res.data.code==200){
+                //construyo el select
+                
+                res.data.elementos.forEach(element =>{
+                  
+
+                    var div = document.getElementById(element.grupo);
+                    div.innerHTML += '<option value="' + element.curp + '" data-display-as="'+element.nombre+'">' + element.nombre + '</option>';
+                  
+                                  });
+              }
+              $f7.dialog.close();
+              //$f7.dialog.alert(res.data.msj);
+              //limpiaForm();
+            }).catch(function (err) {
+              $f7.dialog.close();
+              $f7.dialog.alert(err.statusText);
+              console.log(err.xhr)
+              console.log(err.status)
+              console.log(err.message)
+            }).finally(function(e){
+              //limpiaForm();
+            });
+      };
+
+
+      function getTIPOINVOICE(){
+        var formData =[];
+        formData.operacion = 'get';
+        formData.combo = 'addpago.f7.html_comboTipoInvoice';
+        console.log(formData); 
+      // return false;
+        $f7.dialog.progress();
+        $f7.request.get('https://7perp.geopanda.com.mx/php/admCombos.7perp.php', formData, "json")
+            .then(function (res) {
+              console.log(res);
+              if (res.data.code==200){
+               
+                //construyo el select
+                res.data.elementos.forEach(element =>{
+                    //agrego el elemento al vector para que no se repita y creo el option group dinamicamente
+                    var div = document.getElementById('invoice');
+                    div.innerHTML += '<option value="' + element.idtipoinvoice + '" data-display-as="'+element.descripcion+'" >'+element.descripcion+'</option>';
+                    });
+                              
+              }
+              $f7.dialog.close();
+              //$f7.dialog.alert(res.data.msj);
+              //limpiaForm();
+            }).catch(function (err) {
+              $f7.dialog.close();
+              $f7.dialog.alert(err.statusText);
+              console.log(err.xhr)
+              console.log(err.status)
+              console.log(err.message)
+            }).finally(function(e){
+              //limpiaForm();
+            });
+      }
+
+
+
+       //inicializa el select de unidades
+       function getUNIDADES(){
+         //gruposUnidad
+         var formData =[];
+        formData.operacion = 'get';
+        formData.combo = 'addcontrato.f7.html_comboUnidades'; 
+        //return false;
+        $f7.dialog.progress();
+        $f7.request.get('https://7perp.geopanda.com.mx/php/admCombos.7perp.php', formData, "json")
+            .then(function (res) {
+              if (res.data.code==200){
+                //construyo el select
+                res.data.elementos.forEach(element =>{
+                  var div = document.getElementById(element.grupo);
+                  div.innerHTML += '<option value="' + element.idunidad + '" data-marketRent=' + element.marketRent + ' data-prontopago=' + element.prontopago + ' data-idinmueble=' + element.idinmueble + ' data-inmueble="' + element.inmueble + '" data-unidadtxt="' + element.alias + '">' + element.alias + '</option>';
+                });
+              }
+              $f7.dialog.close();
+              //$f7.dialog.alert(res.data.msj);
+              //limpiaForm();
+            }).catch(function (err) {
+              $f7.dialog.close();
+              $f7.dialog.alert(err.statusText);
+              console.log(err.xhr)
+              console.log(err.status)
+              console.log(err.message)
+            }).finally(function(e){
+              //limpiaForm();
+            });
+       };
+
+       //SET INICIAL DEL CALENDARIO
+ var calendarDefault = $f7.calendar.create({
+          inputEl: '#startdate',
+          //dateFormat: { month: '2-digit', day: '2-digit', year: 'numeric' },
+          dateFormat: 'yyyy-mm-dd',
+          openIn: 'customModal',
+          header: true,
+          footer: true
+        });
+        calendarDefault.setValue([new Date()]);
+
+        var calendarDefaultDiscount = $f7.calendar.create({
+          inputEl: '#discountdate',
+          //dateFormat: { month: '2-digit', day: '2-digit', year: 'numeric' },
+          dateFormat: 'yyyy-mm-dd',
+          openIn: 'customModal',
+          header: true,
+          footer: true
+        });
+        calendarDefaultDiscount.setValue([new Date()]);
+
+
+
+      $('.convert-form-to-data').on('click', function () {
+        var formData = $f7.form.convertToData('#my-form');
+        formData.unidadtxt = document.getElementById('idunidad').selectedOptions[0].dataset.unidadtxt;
+        formData.operacion = 'post'; 
+        console.log(formData);
+        return false;
+        //enviar a guardar
+        $f7.dialog.progress();
+        $f7.request.post('https://7perp.geopanda.com.mx/php/adminLeases.7perp.php', formData, "json")
+        //$f7.request.post('http://localhost/geo007erp/src/php/adminLeases.7perp.php', formData, "json")
+            .then(function (res) {
+             console.log(res.data); //reibe el json de respuesta
+              $f7.dialog.close();
+              $f7.dialog.alert(res.data.msj);
+              limpiaForm();
+            }).catch(function (err) {
+              $f7.dialog.close();
+              $f7.dialog.alert(err.statusText);
+              console.log(err.xhr)
+              console.log(err.status)
+              console.log(err.message)
+            }).finally(function(e){
+              //limpiaForm();
+            });
+      });
+
+      function limpiaForm(){
+        var formData = {
+          'curp': '',
+          'motivo': '',
+          'externo': ['no'],
+        }
+        $f7.form.fillFromData('#my-form', formData);
+      }
+
+      $('.fill-form-from-data').on('click', function () {
+        var formData = {
+          'curp': 'John',
+          'motivo': 'john@doe.com',
+          'externo': ['yes'],
+        }
+        $f7.form.fillFromData('#my-form', formData);
+      });
+    });
+
+    return $render;
+  }
+</script>

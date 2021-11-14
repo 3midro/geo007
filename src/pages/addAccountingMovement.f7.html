@@ -1,0 +1,451 @@
+<template>
+  <div class="page" data-name="addPago">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back" data-reload-previous='true' data-reload="true">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">REGISTRAR MOVIMIENTO</div>
+      </div>
+    </div>
+    <div class="page-content">
+
+      <div class="block">
+
+        <form class="list no-store-data" id="my-form">
+          <ul>
+
+            <li>
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">date_range</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">FECHA</div>
+                  <div class="item-input-wrap">
+                    <input type="text" name="fecha" id="fecha" placeholder="YYYY-MM-DD" />
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <a href="#" class="item-link smart-select smart-select-init" data-close-on-select="true"
+                data-page-title="Tipo de movimiento" data-searchbar="true" data-searchbar-placeholder="Busqueda">
+                <select name="tipo_movimiento" id="tipo_movimiento">
+                  <option value="0" disabled selected>Seleccione</option>
+                  <option value="A" data-option-icon="material:launch">AJUSTE</option>
+                  <option value="I" data-option-icon="material:trending_up">INGRESO</option>
+                  <option value="E" data-option-icon="material:trending_down">EGRESO</option>
+                  <option value="T" data-option-icon="material:sync_alt">TRASPASO</option>
+                  <option value="CC" data-option-icon="material:attach_money" disabled>INGRESO - CUENTAS POR COBRAR</option>
+                  <option value="CP" data-option-icon="material:money_off" disabled>CUENTAS POR PAGAR</option>
+                </select>
+                <div class="item-content">
+                  <div class="item-media"><i class="material-icons size-29">swap_horizontal_circle</i></div>
+                  <div class="item-inner">
+                    <div class="item-title">MOVIMIENTO</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="item-link smart-select smart-select-init" data-close-on-select="true"
+                data-page-title="Cuenta" data-searchbar="true" data-searchbar-placeholder="Busqueda">
+                <select name="cuenta" id="cuenta">
+                  <option value="0" selected disabled></option>
+                </select>
+                <div class="item-content">
+                  <div class="item-media"><i class="material-icons size-29">account_balance</i></div>
+                  <div class="item-inner">
+                    <div class="item-title">CUENTA ORIGEN</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+
+            <li id="li_cuenta_destino">
+              <a href="#" class="item-link smart-select smart-select-init" data-close-on-select="true"
+                data-page-title="Cuenta" data-searchbar="true" data-searchbar-placeholder="Busqueda">
+                <select name="cuenta_destino" id="cuenta_destino">
+                  <option value="0" selected disabled></option>
+                </select>
+                <div class="item-content">
+                  <div class="item-media"><i class="material-icons size-29">account_balance</i></div>
+                  <div class="item-inner">
+                    <div class="item-title">CUENTA DESTINO</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+
+
+
+
+            <li id="li_categoria">
+              <a href="#" class="item-link smart-select smart-select-init" data-close-on-select="true"
+                data-page-title="Categoria" data-searchbar="true" data-searchbar-placeholder="Busqueda">
+                <select name="categoria" id="categoria">
+                  <option value="0" selected disabled></option>
+                </select>
+                <div class="item-content">
+                  <div class="item-media"><i class="material-icons size-29">turned_in_not</i></div>
+                  <div class="item-inner">
+                    <div class="item-title">CATEGORIA</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+
+
+            <li>
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">attach_money</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">CANTIDAD</div>
+                  <div class="item-input-wrap">
+                    <input type="number" name="cantidad" id="cantidad" placeholder="CANTIDAD" pattern="[0-9]*" />
+                  </div>
+                </div>
+              </div>
+            </li>
+
+
+
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">CONCEPTO</div>
+                  <div class="item-input-wrap">
+                    <textarea placeholder="Ingrese aqui los detalles del concepto" name="concepto"></textarea>
+                    <!--<input type="text" name="name" placeholder="DETALLES" required validate/>-->
+                  </div>
+                </div>
+              </div>
+            </li>
+
+
+            <li id="li_saldo_current">
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">attach_money</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">SALDO</div>
+                  <div class="item-input-wrap">
+                    <input type="number" name="saldo_current" id="saldo_current" placeholder="SALDO ACTUAL" value="0"
+                      pattern="[0-9]*" />
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="li_saldo_updated">
+              <div class="item-content item-input">
+                <div class="item-media"><i class="material-icons size-29">attach_money</i></div>
+                <div class="item-inner">
+                  <div class="item-title item-label">SALDO ACTUALIZADO</div>
+                  <div class="item-input-wrap">
+                    <input type="number" name="saldo_updated" id="saldo_updated" placeholder="NUEVO SALDO" value="0"
+                      pattern="[0-9]*" />
+                  </div>
+                </div>
+              </div>
+            </li>
+
+
+
+
+
+
+
+
+            <div class="block block-strong row">
+              <div class="col"><a class="button button-fill convert-form-to-data" href="#">REGISTRAR MOVIMIENTO</a>
+              </div>
+            </div>
+
+          </ul>
+        </form>
+
+        <!-- <div class="block block-strong row">
+          <div class="col"><a class="button button-fill convert-form-to-data" href="#">Get Data</a></div>
+          <div class="col"><a class="button button-fill fill-form-from-data" href="#">Fill Form</a></div>
+        </div> -->
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+</template>
+<script>
+  export default (props, { $, $on, $f7 }) => {
+    $on('pageInit', (e) => {
+      var saldo=0, saldo_destino=0;
+      getCuentas();
+
+      function getCuentas() {
+        var formData = [];
+        formData.operacion = 'get';
+        formData.combo = 'addAccountingMovement.f7.html_comboCuentas';
+        var div = document.getElementById("cuenta");
+        var div_des = document.getElementById("cuenta_destino");
+        div.innerHTML = '<option value="0" selected disabled></option>';
+        div_des.innerHTML = '<option value="0" selected disabled></option>';
+        $f7.dialog.progress();
+        $f7.request.get('https://7perp.geopanda.com.mx/php/admCombos.7perp.php', formData, "json")
+          .then(function (res) {
+            console.log(res);
+           // '<img src="https://7perp.geopanda.com.mx/images/cuentas/' + element.idcuenta + '.png" width="70" />' +
+            if (res.data.code == 200) {
+              //construyo el select
+              res.data.elementos.forEach(element => {
+                // console.log(element);
+                div.innerHTML += '<option value="' + element.cuenta + '" data-option-image="https://7perp.geopanda.com.mx/images/cuentas/' + element.cuenta + '.png" data-saldo="' + element.saldo + '">' + element.alias + '</option>';
+                div_des.innerHTML += '<option value="' + element.cuenta + '"  data-option-image="https://7perp.geopanda.com.mx/images/cuentas/' + element.cuenta + '.png" data-saldo="' + element.saldo + '">' + element.alias + '</option>';
+              });
+            }
+            // div.selectedIndex="";
+            $f7.dialog.close();
+            //$f7.dialog.alert(res.data.msj);
+            //limpiaForm();
+          }).catch(function (err) {
+            $f7.dialog.close();
+            $f7.dialog.alert(err.statusText);
+            console.log(err.xhr)
+            console.log(err.status)
+            console.log(err.message)
+          }).finally(function (e) {
+            //limpiaForm();
+          });
+      }
+
+      
+
+      $("#cuenta").change(function () {
+        saldo = this.options[this.selectedIndex].getAttribute('data-saldo');
+        //console.log(saldo);
+        $("#saldo_current").val(saldo);
+
+      });
+
+      $("#cuenta_destino").change(function () {
+        saldo_destino = this.options[this.selectedIndex].getAttribute('data-saldo');
+        var sel = document.getElementById("cuenta");
+        var text = 'TRANSFERENCIA DESDE CUENTA ORIGEN '+sel.options[sel.selectedIndex].text;
+        text +=  ' PARA => '+this.options[this.selectedIndex].text;
+        var formData = { 'concepto': text };
+              $f7.form.fillFromData('#my-form', formData);
+      });
+
+      $("#cantidad").on('blur', function () {
+        //var saldo = $("#saldo_current").val();
+        var mov = document.getElementById("tipo_movimiento").value;
+       // console.log(mov);
+       // console.log(this.value);
+      //  console.log(saldo);
+      var formData;
+      var cantidad = document.getElementById("cantidad").value;
+      var resultado;
+        switch (mov) {
+          case "T":
+            if (parseFloat(this.value) > parseFloat(saldo)) {
+              $f7.dialog.alert("SALDO INSUFICIENTE PARA REALIZAR ESTA OPERACIÓN");
+              //formData = { 'cantidad': '' };
+              resultado ='';
+            } else {
+              resultado = parseFloat(saldo) - parseFloat(cantidad);
+              //formData = { 'saldo_updated': parseFloat(saldo) - parseFloat(cantidad) };
+            }
+            console.log(resultado);
+            break;
+            case "E": 
+           
+            if (cantidad<0){ //es un numero negativo, por lo que incrementa la deuda
+              resultado = parseFloat(saldo) + parseFloat(cantidad);
+            }else if(saldo<0){
+              // si el saldo es negativo y el egreso es positivo tiene que hacer una resta
+              resultado = parseFloat(saldo) - parseFloat(cantidad);
+            }else if (parseFloat(cantidad) > parseFloat(saldo)) { // cantidad es positivo pero es probable que la cantidad supere al saldo
+              $f7.dialog.confirm('El saldo es insuficiente, ¿Desea continuar?', function () {
+                resultado = parseFloat(saldo) + parseFloat(cantidad);
+                // el reultado debe ser negativo
+              });
+            } else {
+              resultado = parseFloat(saldo) - parseFloat(cantidad);
+            }
+            console.log(resultado);
+          //  formData = { 'saldo_updated': resultado };
+
+            break;
+          case "I":
+          resultado = parseFloat(saldo) + parseFloat(cantidad);
+            //formData = { 'saldo_updated': parseFloat(saldo) + parseFloat(this.value) };
+            console.log(resultado);
+            break;
+          case "A":
+            if(parseFloat(cantidad)>parseFloat(saldo)){
+              //hacer un ingreso con la diferencia
+              resultado = parseFloat(cantidad) - parseFloat(saldo);
+              console.log("hacer un ingreso con la dif:= " +resultado);
+            }else if(parseFloat(saldo)>parseFloat(cantidad)){
+              //hacer un egreso con la diferencia
+              resultado = parseFloat(saldo) - parseFloat(cantidad);
+              console.log("hacer un egreso con la dif:= " +resultado);
+            }
+            
+          resultado = cantidad;
+           // formData = { 'saldo_updated': parseFloat(this.value) };
+            break;
+        }
+        console.log(resultado);
+        formData ={'saldo_updated':parseFloat(resultado)};
+      //  console.log(formData);
+        $f7.form.fillFromData('#my-form', formData);
+
+      });
+      //tipo_movimiento
+      $("select[name=tipo_movimiento]").change(function () {
+        //console.log("trae las categorias de "+this.value);
+        if (this.value != 'T') {
+          $("#li_cuenta_destino").hide();
+         // $("#li_categoria").show();
+          $("#li_saldo_current").show();
+          $("#li_saldo_updated").show();
+
+        } else {
+          //cuando es un traspaso
+        
+          $("#li_cuenta_destino").show();
+        //  $("#li_categoria").hide();
+          $("#li_saldo_current").hide();
+          $("#li_saldo_updated").hide();
+           formData = {
+            'categoria': 0,
+            'saldo_current': 0,
+            'saldo_updated': 0,
+          }
+          $f7.form.fillFromData('#my-form', formData);
+        }
+
+
+          var formData = [];
+          formData.operacion = 'get';
+          formData.combo = 'addAccountingMovement.f7.html_comboCategorias';
+          formData.tipo_movimiento = this.value;
+          var div = document.getElementById("categoria");
+          div.innerHTML = '<option value="0" selected disabled></option>';
+
+          $f7.dialog.progress();
+          $f7.request.get('https://7perp.geopanda.com.mx/php/admCombos.7perp.php', formData, "json")
+            .then(function (res) {
+            //  console.log(res);
+
+              if (res.data.code == 200) {
+                //construyo el select
+                res.data.elementos.forEach(element => {
+                  console.log(element);
+                  //div.innerHTML += '<option value="' + element.idcategoria + '" >' + element.categoria + '</option>';
+                  div.innerHTML += '<option value="'+element.idcategoria+'" data-option-icon="material:'+element.icon+'">'+element.categoria+'</option>';
+                });
+              }
+
+              formData = { 'categoria': '0' };
+              $f7.form.fillFromData('#my-form', formData);
+
+              $f7.dialog.close();
+              //$f7.dialog.alert(res.data.msj);
+              //limpiaForm();
+            }).catch(function (err) {
+              $f7.dialog.close();
+              $f7.dialog.alert(err.statusText);
+              console.log(err.xhr)
+              console.log(err.status)
+              console.log(err.message)
+            }).finally(function (e) {
+              //limpiaForm();
+            });
+       
+
+      });
+
+
+
+
+
+      //SET INICIAL DEL CALENDARIO
+      var calendarDefault = $f7.calendar.create({
+        inputEl: '#startdate',
+        //dateF,ormat: { month: '2-digit', day: '2-digit', year: 'numeric' },
+        dateFormat: 'yyyy-mm-dd',
+        openIn: 'customModal',
+        header: true,
+        footer: true
+      });
+      calendarDefault.setValue([new Date()]);
+
+      var calendarDefaultDiscount = $f7.calendar.create({
+        inputEl: '#fecha',
+        //dateFormat: { month: '2-digit', day: '2-digit', year: 'numeric' },
+        dateFormat: 'yyyy-mm-dd',
+        openIn: 'customModal',
+        header: true,
+        footer: true
+      });
+      calendarDefaultDiscount.setValue([new Date()]);
+
+
+
+      $('.convert-form-to-data').on('click', function () {
+        var formData = $f7.form.convertToData('#my-form');
+
+        formData.saldo_destino = saldo_destino;
+        console.log(formData);
+       // return false;
+
+        //  formData.unidadtxt = document.getElementById('idunidad').selectedOptions[0].dataset.unidadtxt;
+        formData.operacion = 'post';
+      //  console.log(formData);
+        //return false;
+        //enviar a guardar
+        $f7.dialog.progress();
+        $f7.request.post('https://7perp.geopanda.com.mx/php/adminMovimientos.7perp.php', formData, "json")
+          //$f7.request.post('http://localhost/geo007erp/src/php/adminLeases.7perp.php', formData, "json")
+          .then(function (res) {
+            //console.log(res.data); //reibe el json de respuesta
+            $f7.dialog.close();
+            $f7.dialog.alert(res.data.msj);
+            // limpiaForm();
+          }).catch(function (err) {
+            $f7.dialog.close();
+            $f7.dialog.alert(err.statusText);
+            console.log(err.xhr)
+            console.log(err.status)
+            console.log(err.message)
+          }).finally(function (e) {
+            //limpiaForm();
+           console.log("Refresh previuos page");
+           sessionStorage.setItem('refresh', true);
+            $(".link.back").click();
+          });
+      });
+
+      function limpiaForm() {
+        var formData = {
+          'curp': '',
+          'motivo': '',
+          'externo': ['no'],
+        }
+        $f7.form.fillFromData('#my-form', formData);
+      }
+
+    });
+
+    return $render;
+  }
+</script>

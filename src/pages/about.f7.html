@@ -1,0 +1,49 @@
+<template>
+<div class="page" data-name="about">
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="if-not-md">Back</span>
+        </a>
+      </div>
+      <div class="title">Versión</div>
+    </div>
+  </div>
+  <div class="page-content text-align-center align-content-space-around">
+    <div class="block-title ">Versión</div>
+    <div class="block block-strong">
+      <p> 
+        <object data="https://7perp.geopanda.com.mx/images/about.svg" width="300" height="300" class="lazy lazy-fade-in"> </object>
+      </p>
+      
+      <canvas></canvas>
+
+
+
+      <p>1.0.1</p>
+      <p>Última Actualización 13/11/2021</p>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+export default (props, { $, $on, $f7 }) => {
+    $on('pageInit', () => {
+     var SignaturePad = require('signature_pad');
+     console.log(SignaturePad);
+     var canvas = document.querySelector("canvas");
+     if (canvas){
+      console.log("firma"); 
+     // signature_pad = new SignaturePad(canvas); 
+     }
+
+     
+     
+    });
+
+    return $render;
+  }
+</script>

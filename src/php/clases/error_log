@@ -1,0 +1,22 @@
+[02-Jun-2020 15:39:10 America/Chicago] PHP Parse error:  syntax error, unexpected ')' in /home/geopanda/public_html/7perp/php/clases/busqueda.class.php on line 87
+[02-Jun-2020 17:41:17 America/Chicago] PHP Parse error:  syntax error, unexpected '$' in /home/geopanda/public_html/7perp/php/clases/busqueda.class.php on line 74
+[02-Jun-2020 17:41:32 America/Chicago] PHP Parse error:  syntax error, unexpected '$' in /home/geopanda/public_html/7perp/php/clases/busqueda.class.php on line 74
+[03-Jun-2020 20:25:44 America/Chicago] PHP Notice:  Undefined variable: fecha in /home/geopanda/public_html/7perp/php/clases/registro.class.php on line 22
+[03-Jun-2020 20:35:59 America/Chicago] PHP Notice:  Undefined variable: fecha in /home/geopanda/public_html/7perp/php/clases/registro.class.php on line 22
+[17-Jun-2020 16:38:44 America/Chicago] PHP Parse error:  syntax error, unexpected '}', expecting ')' in /home/geopanda/public_html/7perp/php/generaAlbo.php on line 27
+[19-Jun-2020 09:00:58 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home/geopanda/public_html/7perp/php/clases/registro.class.php on line 11
+[19-Jun-2020 14:06:10 America/Chicago] PHP Notice:  Undefined index: Vresp in /home/geopanda/public_html/7perp/php/clases/registro.class.php on line 29
+[08-Sep-2020 10:26:15 America/Chicago] PHP Warning:  require(/fpdf/fpdf.php): failed to open stream: No such file or directory in /home/geopanda/public_html/7perp/php/registraPago.php on line 36
+[08-Sep-2020 10:26:15 America/Chicago] PHP Warning:  require(/fpdf/fpdf.php): failed to open stream: No such file or directory in /home/geopanda/public_html/7perp/php/registraPago.php on line 36
+[08-Sep-2020 10:26:15 America/Chicago] PHP Fatal error:  require(): Failed opening required '/fpdf/fpdf.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/geopanda/public_html/7perp/php/registraPago.php on line 36
+[08-Sep-2020 10:26:49 America/Chicago] PHP Fatal error:  Uncaught exception 'Exception' with message 'FPDF error: Incorrect output destination: l' in /home/geopanda/public_html/7perp/php/fpdf/fpdf.php:271
+Stack trace:
+#0 /home/geopanda/public_html/7perp/php/fpdf/fpdf.php(1028): FPDF->Error('Incorrect outpu...')
+#1 /home/geopanda/public_html/7perp/php/registraPago.php(42): FPDF->Output('prueba', 'l')
+#2 {main}
+  thrown in /home/geopanda/public_html/7perp/php/fpdf/fpdf.php on line 271
+[08-Sep-2020 10:28:07 America/Chicago] PHP Notice:  Undefined variable: fpdf in /home/geopanda/public_html/7perp/php/registraPago.php on line 42
+[08-Sep-2020 10:28:07 America/Chicago] PHP Fatal error:  Call to a member function Output() on null in /home/geopanda/public_html/7perp/php/registraPago.php on line 42
+[08-Sep-2020 12:30:12 America/Chicago] PHP Warning:  require(../fpdf/fpdf.php): failed to open stream: No such file or directory in /home/geopanda/public_html/7perp/php/clases/registro.class.php on line 30
+[08-Sep-2020 12:30:12 America/Chicago] PHP Warning:  require(../fpdf/fpdf.php): failed to open stream: No such file or directory in /home/geopanda/public_html/7perp/php/clases/registro.class.php on line 30
+[08-Sep-2020 12:30:12 America/Chicago] PHP Fatal error:  require(): Failed opening required '../fpdf/fpdf.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/geopanda/public_html/7perp/php/clases/registro.class.php on line 30

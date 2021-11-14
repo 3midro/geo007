@@ -1,0 +1,397 @@
+<template>
+  <div class="page" data-name="addblacklist">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">Agregar persona</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="block-title">Agregar persona a la lista de personas</div>
+      <div class="block">
+        <p class="text-align-justify">Esta lista permite agregar personas independientemente de la relación con 7P, ya sean propietarios, inquilinos, proveedores o en lista negra</p>
+        <form class="list no-store-data" id="my-form">
+          <ul>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">CURP</div>
+                  <div class="item-input-wrap">
+                    <input type="text" name="curp" id="curp" placeholder="CURP" required validate style="text-transform:uppercase" data-error-message="Completa este campo" />
+                  </div>
+                </div>
+              </div>
+            </li>
+            
+            <li>
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-title">verificación LISTA NEGRA</div>
+                  <div class="item-after">
+                    <label class="toggle toggle-init">
+                      <input type="checkbox" name="blacklist" id="blacklist" value="no" /><i class="toggle-icon"></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="display-none" id="txt_lista_negra">
+              <div class="block-title block-title-medium text-color-pink text-align-center titulo_lista_negra ">Block Title Medium</div>
+              <div class="block block-strong bg-color-pink text-color-white text-align-justify texto_lista_negra">
+                <p>Donec et nulla auctor massa pharetra adipiscing ut sit amet sem. Suspendisse molestie velit vitae mattis
+                  tincidunt. Ut sit amet quam mollis, vulputate turpis vel, sagittis felis. </p>
+              </div>
+            </li>
+
+            <li class="display-none">
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-title">verificación INE</div>
+                  <div class="item-after">
+                    <label class="toggle toggle-init">
+                      <input  type="checkbox" name="ine" id="ine" value="no" /><i class="toggle-icon"></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-title">verificación RENAPO</div>
+                  <div class="item-after">
+                    <label class="toggle toggle-init">
+                      <input type="checkbox" name="renapo" id="renapo" value="no" /><i class="toggle-icon"></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">NOMBRE COMPLETO</div>
+                  <div class="item-input-wrap">
+                    <input type="text" name="nombre" placeholder="NOMBRE Y APELLIDOS" required validate style="text-transform:uppercase" data-error-message="Completa este campo" />
+                  </div>
+                </div>
+              </div>
+            </li>
+            
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">FECHA DE NACIMIENTO</div>
+                  <div class="item-input-wrap">
+                    <input type="text" name="birthday" id="birthday" placeholder="DD/MM/YYYY"  />
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+
+ <!--LUGAR DE NACIMIENTO-->
+ <li>
+  <a class="item-link smart-select smart-select-init" data-close-on-select="true">
+    <select name="entidad_nac" id="entidad_nac">
+      <option value="AS" selected>AGUASCALIENTES</option>
+      <option value="BC">BAJA CALIFORNIA</option>
+      <option value="BS">BAJA CALIFORNIA SUR</option>
+      <option value="CC">CAMPECHE</option>
+      <option value="CL">COAHUILA</option>
+      <option value="CM">COLIMA</option>
+      <option value="CS">CHIAPAS</option>
+      <option value="CH">CHIHUAHUA</option>
+      <option value="DF">CDMX</option>
+      <option value="DG">DURANGO</option>
+      <option value="GT">GUANAJUATO</option>
+      <option value="GR">GUERRERO</option>
+      <option value="HG">HIDALGO</option>
+      <option value="JC">JALISCO</option>
+      <option value="MC">EDO DE MÉXICO</option>
+      <option value="MN">MICHOACÁN</option>
+      <option value="MS">MORELOS</option>
+      <option value="NT">NAYARIT</option>
+      <option value="NL">NUEVO LEÓN</option>
+      <option value="OC">OAXACA</option>
+      <option value="PL">PUEBLA</option>
+      <option value="QT">QUERÉTARO</option>
+      <option value="QR">QUINTANA ROO</option>
+      <option value="SP">SAN LUIS POTOSÍ</option>
+      <option value="SL">SINALOA</option>
+      <option value="SR">SONORA</option>
+      <option value="TC">TABASCO</option>
+      <option value="TS">TAMAULIPAS</option>
+      <option value="TL">TLAXCALA</option>
+      <option value="VZ">VERACRUZ</option>
+      <option value="YN">YUCATÁN</option>
+      <option value="ZS">ZACATECAS</option>
+      <option value="NE">NACIDO EN EL EXTRANJERO</option>
+    </select>
+    <div class="item-content">
+      <div class="item-inner">
+        <div class="item-title">LUGAR DE NACIMIENTO</div>
+      </div>
+    </div>
+  </a>
+</li>
+
+
+            <li>
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-title">¿Es MUJER?</div>
+                  <div class="item-after">
+                    <label class="toggle toggle-init color-pink">
+                      <input  type="checkbox" name="genero"  id="genero" value="no" /><i class="toggle-icon"></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+           
+<!-- CELULAR y EMAIL-->
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">CELULAR</div>
+                  <div class="item-input-wrap">
+                    <input type="text" name="celular" placeholder="CELULAR" required validate pattern="[0-9]*" data-error-message="Solo numeros" />
+                  </div>
+                </div>
+              </div>
+            </li>   
+
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">EMAIL</div>
+                  <div class="item-input-wrap">
+                    <input type="email" name="email" placeholder="EMAIL" required validate style="text-transform:uppercase" data-error-message="Completa este campo" value="1@1.com"/>
+                  </div>
+                </div>
+              </div>
+            </li>   
+
+           
+
+            <li>
+              <a class="button button-fill convert-form-to-data" href="#">REGISTRAR PERSONA</a>
+            </li>
+
+          </ul>
+        </form>
+
+     <!-- <div class="block block-strong row">
+          <div class="col"><a class="button button-fill convert-form-to-data" href="#">Get Data</a></div>
+          <div class="col"><a class="button button-fill fill-form-from-data" href="#">Fill Form</a></div>
+        </div> -->
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+</template>
+<script>
+  export default (props, { $, $on, $f7 }) => {
+    $on('pageInit', () => {
+
+
+      // guardar persona
+      $('.convert-form-to-data').on('click', function () {
+          var formData = $f7.form.convertToData('#my-form');
+          formData.operacion ='post';
+          formData.genero = (formData.genero.length==1)?'M':'H';
+          formData.blacklist = formData.blacklist.length;
+          formData.ine = formData.ine.length;
+          formData.renapo = formData.renapo.length;
+          formData._x = Math.random();
+          console.log(formData);
+          //return false;
+          $f7.dialog.progress();
+          $f7.request.post('https://7perp.geopanda.com.mx/php/adminPersonas.7perp.php', formData, "json")
+              .then(function (res) {
+               console.log(res.data); //reibe el json de respuesta
+                $f7.dialog.close();
+                $f7.dialog.alert(res.data.msj);
+               // regresa la pantalla
+               //$(".link back").click();
+              }).catch(function (err) {
+                $f7.dialog.close();
+                $f7.dialog.alert(err.statusText);
+                console.log(err.xhr)
+                console.log(err.status)
+                console.log(err.message)
+              }).finally(function(e){
+                //limpiaForm();
+              });
+        });
+
+
+ //SET INICIAL DEL CALENDARIO
+ var calendarDefault = $f7.calendar.create({
+          inputEl: '#birthday',
+          //dateFormat: { month: '2-digit', day: '2-digit', year: 'numeric' },
+          dateFormat: 'yyyy-mm-dd',
+          openIn: 'customModal',
+          header: true,
+          footer: true
+        });
+        calendarDefault.setValue([new Date()]);
+
+        $("#curp").on('change',function(){
+          //en cuanto cambie la curp apaga este elemento
+          $('#renapo').prop("checked",false);
+          $('#blacklist').prop("checked",false);
+          $("#txt_lista_negra").removeClass("display-block").addClass("display-none");
+        });
+      
+      $('#renapo').on('change', function(){
+        if (this.checked){
+          
+          var curp2validate = $("#curp").val().toUpperCase();
+          console.log("comienza la validación con renapo "+ curp2validate);
+          if (curpValida(curp2validate)){
+            //envio a validar a renapo
+            $f7.dialog.progress();
+            $f7.request.get('https://7perp.geopanda.com.mx/php/renapo.php', { cveCurp: curp2validate }, "json")
+            //$f7.request.get('http://localhost/geo007erp/src/php/renapo.php', { cveCurp: curp2validate }, "json")
+              .then(function (res) {
+                console.log(res.data);
+                if (res.data.code==200){
+                    //leno el formulario con la informacion rescatada de renapo
+                    if(res.data.msj.genero=="M"){
+                      $('#genero').prop("checked",true);
+                    }else {
+                      $('#genero').prop("checked",false);
+                    }
+                    
+                    var formData = {
+                        'nombre': res.data.msj.nombre,
+                        'entidad_nac':res.data.msj.entidad_nac
+                        //'genero': ['yes'],
+                      }
+                    $f7.form.fillFromData('#my-form', formData);
+                    calendarDefault.setValue([new Date(res.data.msj.birthday)]);
+                    $f7.dialog.close();
+                }else{
+                  $('#renapo').prop("checked",false);
+                  $f7.dialog.close();
+                  $f7.dialog.alert(res.data.msj);
+                }
+              })
+              .catch(function (err) {
+                $f7.dialog.close();
+                console.log(err.xhr)
+                console.log(err.status)
+                console.log(err.message)
+              });
+            console.log("curp valida");
+          } else{
+            $('#renapo').prop("checked",false);
+            $f7.dialog.close();
+            $f7.dialog.alert("CURP NO VÁLIDA");
+          }
+        }
+        (this.checked)?console.log("1"):console.log("0"); 
+      });
+
+
+      //revisa en blacklist
+      $('#blacklist').on('change', function(){
+        if (this.checked){
+          console.log("revisa en black list");
+          var formData = [];
+          formData.operacion ='get';
+          formData.curp = $("#curp").val().toUpperCase();
+          console.log(formData);
+          $f7.dialog.progress();
+          $f7.request.get('https://7perp.geopanda.com.mx/php/adminBlackList.7perp.php', formData, "json")
+              .then(function (res) {
+                $f7.dialog.close();
+                if (res.data.code==200){ //si esta en lista negra
+                    $f7.dialog.alert("Este usuario cuenta con un REPORTE");
+                    $("#txt_lista_negra").removeClass("display-none").addClass("display-block");
+                    $(".titulo_lista_negra").text("REPORTE");
+                    $(".texto_lista_negra").text("Este usuario tiene un reporte por el siguiente motivo: "+res.data.elementos[0].motivo);
+                    console.log(res.data); //reibe el json de respuesta
+                }else if(res.data.code == 201){ //no esta en lista negra
+                    //el usuario no esta en la lista prieta
+                    $f7.dialog.alert("USUARIO SIN REPORTE EN LISTA NEGRA");
+                }else if (res.data.code==400){
+                  $f7.dialog.close();
+                  $f7.dialog.alert(res.data.msj);
+                }
+              }).catch(function (err) {
+                $f7.dialog.close();
+                $f7.dialog.alert(err.statusText);
+                console.log(err.xhr)
+                console.log(err.status)
+                console.log(err.message)
+              }).finally(function(e){
+                //limpiaForm();
+              });
+        }else{
+          $("#txt_lista_negra").removeClass("display-block").addClass("display-none");
+        }
+      });
+
+     
+      function limpiaForm(){
+        var formData = {
+          'curp': '',
+          'motivo': '',
+          'externo': ['no'],
+        }
+        $f7.form.fillFromData('#my-form', formData);
+      }
+
+
+
+
+//Función para validar una CURP
+function curpValida(curp) {
+    var re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
+        validado = curp.match(re);
+	
+    if (!validado)  //Coincide con el formato general?
+    	return false;
+    
+    //Validar que coincida el dígito verificador
+    function digitoVerificador(curp17) {
+        //Fuente https://consultas.curp.gob.mx/CurpSP/
+        var diccionario  = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ",
+            lngSuma      = 0.0,
+            lngDigito    = 0.0;
+        for(var i=0; i<17; i++)
+            lngSuma = lngSuma + diccionario.indexOf(curp17.charAt(i)) * (18 - i);
+        lngDigito = 10 - lngSuma % 10;
+        if (lngDigito == 10) return 0;
+        return lngDigito;
+    }
+  
+    if (validado[2] != digitoVerificador(validado[1])) 
+    	return false;
+        
+    return true; //Validado
+}
+     
+    });
+
+    return $render;
+  }
+</script>
