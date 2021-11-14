@@ -92,6 +92,26 @@ VALUES( $cuenta, '$fecha',$categoria, 'TE', $cantidad, $saldo_current, $saldo_up
         $conmay->conecta_7p();
 
             switch ($listado){
+                case "geopanda_x_mes":
+                    $q ='SELECT case WHEN tipomovimiento = "I" then "INGRESOS" WHEN tipomovimiento = "IM" then "IMPUESTOS" WHEN tipomovimiento = "E" then "EGRESOS" end as cabecera, SUM(CANTIDAD) as total from cat_cuentas_movimientos WHERE idcategoria in (2,3,4,5,6,7,10,11,12,13,18,42,43,44) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND MONTH(fecha) = MONTH(CURRENT_DATE()) GROUP BY tipomovimiento';
+                    $r = $conmay->consulta($q);
+                    $n = $conmay->filas($r);
+                    if ($n >= 1) {
+                        $e = array();
+                        while ($fila = $conmay->vector($r)) {
+                            $feature = array(
+                                "total"=>$fila["total"],
+                                "cabecera"=>utf8_encode($fila["cabecera"])
+                                );
+                            array_push($e,$feature);
+                        }
+                    }
+                    $resp = array(
+                        "code"=>200,
+                        "elementos" =>$e,
+                        "query"=> $q
+                    );
+                    break;
                 case "movimientos_x_cuenta":
                     $cuenta = $_GET["cuenta"];
                     $q = 'SELECT cm.*, ccc.categoria,ccc.icon,ccc.color  FROM cat_cuentas_movimientos cm LEFT join cat_cuentas_categorias ccc on cm.idcategoria = ccc.idcategoria WHERE cm.cuenta = '.$cuenta.' ORDER BY cm.movimiento DESC;';

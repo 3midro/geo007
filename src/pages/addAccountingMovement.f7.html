@@ -41,6 +41,7 @@
                   <option value="I" data-option-icon="material:trending_up">INGRESO</option>
                   <option value="E" data-option-icon="material:trending_down">EGRESO</option>
                   <option value="T" data-option-icon="material:sync_alt">TRASPASO</option>
+                  <option value="IM" data-option-icon="material:gavel">IMPUESTOS</option>
                   <option value="CC" data-option-icon="material:attach_money" disabled>INGRESO - CUENTAS POR COBRAR</option>
                   <option value="CP" data-option-icon="material:money_off" disabled>CUENTAS POR PAGAR</option>
                 </select>
@@ -264,7 +265,7 @@
             }
             console.log(resultado);
             break;
-            case "E": 
+            case "E": case "IM": 
            
             if (cantidad<0){ //es un numero negativo, por lo que incrementa la deuda
               resultado = parseFloat(saldo) + parseFloat(cantidad);
